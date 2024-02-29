@@ -226,6 +226,27 @@ function buildWidget(config) {
     document.getElementsByClassName('productView-price')[0].append('This is a subscription only product.');
   }
 
+// Build widget options
+  var html = config.options.reduce((optionHtml, option) => {
+    return `${optionHtml}
+      <div style='margin: 10px 0px;text-align: left;'>
+        <input
+          style='transform: scale(1.5);margin: 0px 8px 0px 0px;' id='sub_con${option.id}' type='radio'
+          name='sub_option[]'
+          value='${option.stripe_price_id}' 
+          data-calculated-price='${option.calculated_price_decimal}' 
+          ${config?.default_option_id == option.id ? 'checked' : ''}
+        />
+        <label for='sub_con${option.id}'>
+          ${option.frequency > 1 ? 
+            `Every ${option.frequency} ${option.type}s - Save ${option.discount}${option.unit}!` :
+            `Every ${option.type} - Save ${option.discount}${option.unit}!`}
+        </label><br />
+      </div>`
+  }, '');
+
+  // Insert widget option HTML into the widget container div, which was inserted into storefront's theme
+  $subsciption_options.innerHTML = html;
   // Only render widget a single time per page load
   if (typeof ($inital_widget_container) !== 'undefined' && $inital_widget_container !== null) {
     // Render final widget HTML
