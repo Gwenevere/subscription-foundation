@@ -220,9 +220,9 @@ function buildWidget(config) {
   // If onetime purchase is false, disable the add to cart button so it's a subscription only product 
   if (!subWidgetConfig.onetime_purchase) {
     document.getElementById('form-action-addToCart').disabled = true;
-    document.getElementsByClassName('b2b-add-to-list button')[0].disabled = true;
-    console.log(document.getElementsByClassName('b2b-add-to-quote button')[0]);
-    document.getElementsByClassName('b2b-add-to-quote button')[0].disabled = true;
+    document.getElementsByClassName('b2b-add-to-list')[0].disabled = true;
+    console.log(document.getElementsByClassName('b2b-add-to-quote')[0]);
+    document.getElementsByClassName('b2b-add-to-quote')[0].disabled = true;
     document.getElementsByClassName('productView-price')[0].append('This is a subscription only product.');
   }
 
