@@ -169,6 +169,7 @@ function bindElements() {
       var product_name = document.querySelector('h1.productView-title').innerText;
 
       var list_price = parseFloat(($selected_sub_option.dataset.calculatedPrice / 100).toFixed(2));
+      console.log(list_price);
 
       // Add loading animation to subscribe button
       e.target.classList.add('activeLoading');
@@ -184,7 +185,7 @@ function bindElements() {
         quantity: 1,
         product_id: productId,
         list_price: list_price,
-        name: 'Subscription:' + product_name + ' :' + $selected_sub_option.value,
+        name: 'Subscription:' + product_name,
       });
 
       if (typeof (cart.id) === 'undefined') {
@@ -219,30 +220,11 @@ function buildWidget(config) {
   // If onetime purchase is false, disable the add to cart button so it's a subscription only product 
   if (!subWidgetConfig.onetime_purchase) {
     document.getElementById('form-action-addToCart').disabled = true;
+    document.getElementsByClassName('b2b-add-to-list button')[0].disabled = true;
+    console.log(document.getElementsByClassName('b2b-add-to-quote button')[0]);
+    document.getElementsByClassName('b2b-add-to-quote button')[0].disabled = true;
     document.getElementsByClassName('productView-price')[0].append('This is a subscription only product.');
   }
-
-  // Build widget options
-  var html = config.options.reduce((optionHtml, option) => {
-    return `${optionHtml}
-      <div style='margin: 10px 0px;text-align: left;'>
-        <input
-          style='transform: scale(1.5);margin: 0px 8px 0px 0px;' id='sub_con${option.id}' type='radio'
-          name='sub_option[]'
-          value='${option.stripe_price_id}' 
-          data-calculated-price='${option.calculated_price_decimal}' 
-          ${config?.default_option_id == option.id ? 'checked' : ''}
-        />
-        <label for='sub_con${option.id}'>
-          ${option.frequency > 1 ? 
-            `Every ${option.frequency} ${option.type}s - Save ${option.discount}${option.unit}!` :
-            `Every ${option.type} - Save ${option.discount}${option.unit}!`}
-        </label><br />
-      </div>`
-  }, '');
-
-  // Insert widget option HTML into the widget container div, which was inserted into storefront's theme
-  $subsciption_options.innerHTML = html;
 
   // Only render widget a single time per page load
   if (typeof ($inital_widget_container) !== 'undefined' && $inital_widget_container !== null) {

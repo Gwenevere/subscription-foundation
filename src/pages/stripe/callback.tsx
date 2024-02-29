@@ -10,8 +10,8 @@ const StripeCallback = (): JSX.Element => {
     bc.postMessage({
       code
     });
-
-    return window.close();
+    console.log(code);
+   //return window.close();
   };
   useEffect(() => {
     if (!router.isReady) return;

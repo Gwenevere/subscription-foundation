@@ -32,7 +32,6 @@ function useStripe() {
   );
 
   const [bc, setBc] = useState<BroadcastChannel>();
-
   const startConnecting = () => {
     openPopupWindow(STRIPE_OAUTH_URL, "Connect Stripe", 500, 700);
     if (bc) return;
@@ -59,6 +58,28 @@ function useStripe() {
         setConnecting(null);
       }
     };
+
+   // window.test = async function ({ data }) {
+   //   if (connecting !== null) return;
+   //   setConnecting(true);
+   //   try {
+   //     const res = await connectStripe(data?.code);
+     //   alertManager.add({
+      //    messages: [{ text: "You've successfully connected with Stripe!" }],
+       //   type: "success",
+       //   autoDismiss: true
+      //  });
+       // setStripe(res);
+       // setConnecting(false);
+     // } catch (error) {
+       // alertManager.add({
+        //  messages: [{ text: getErrorMessage(error) }],
+        //  type: "error",
+         // autoDismiss: true
+      //  });
+      //  setConnecting(null);
+     // }
+    //};
   };
 
   return { stripe, setStripe, connecting, connected, startConnecting };
